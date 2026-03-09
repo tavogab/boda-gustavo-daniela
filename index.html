@@ -1009,6 +1009,94 @@
     color: var(--beige);
   }
 
+  /* ═══ LOCATION MODAL ═══ */
+  .location-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    cursor: pointer;
+  }
+  .location-modal.show {
+    display: flex;
+  }
+  .location-modal-content {
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 32px 24px;
+    max-width: 320px;
+    width: 100%;
+    position: relative;
+    cursor: default;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .location-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  .location-modal-close:hover {
+    color: var(--text);
+  }
+  .location-modal-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .location-modal-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .location-modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .location-modal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .location-modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .location-modal-btn i {
+    font-size: 1.4rem;
+  }
+  .location-modal-btn-maps {
+    background: #4285f4;
+    color: #fff;
+  }
+  .location-modal-btn-waze {
+    background: #33ccff;
+    color: #fff;
+  }
+
   /* ═══ FOOTER ═══ */
   footer {
     text-align: center;
@@ -1175,6 +1263,25 @@
   <p>Verifica que estés usando el enlace correcto.</p>
 </div>
 
+<!-- Location Picker Modal -->
+<div class="location-modal" id="locationModal" onclick="closeLocationPicker(event)">
+  <div class="location-modal-content" onclick="event.stopPropagation()">
+    <button type="button" class="location-modal-close" onclick="closeLocationPicker()" aria-label="Cerrar">&times;</button>
+    <p class="location-modal-title">¿Cómo deseas llegar?</p>
+    <p class="location-modal-subtitle">Club El Prado</p>
+    <div class="location-modal-buttons">
+      <a href="https://www.google.com/maps/search/Club+El+Prado" target="_blank" rel="noopener noreferrer" class="location-modal-btn location-modal-btn-maps">
+        <i class="fa-brands fa-google"></i>
+        <span>Google Maps</span>
+      </a>
+      <a href="https://waze.com/ul?q=Club+El+Prado" target="_blank" rel="noopener noreferrer" class="location-modal-btn location-modal-btn-waze">
+        <i class="fa-brands fa-waze"></i>
+        <span>Waze</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- Main -->
 <div class="main-content" id="mainContent">
 <div class="invitation-card">
@@ -1228,16 +1335,16 @@
     <p class="section-label reveal">Los Detalles</p>
     <h2 class="section-title reveal">Celebra con Nosotros</h2>
     <div class="details-grid">
-      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Gustavo+y+Daniela&dates=20260508T203000Z/20260509T040000Z&details=Con+la+bendici%C3%B3n+de+Dios%2C+celebramos+nuestra+boda.+Ceremonia+campestre.&location=Club+El+Prado" target="_blank" rel="noopener noreferrer" class="detail-card reveal detail-card-link">
+      <div role="button" tabindex="0" onclick="addToCalendar()" onkeypress="if(event.key==='Enter')addToCalendar()" class="detail-card reveal detail-card-link">
         <div class="detail-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
         <h3>Fecha y Hora</h3>
-        <p>Viernes 8 de mayo, 2026<br>3:30 p.m.</p>
-      </a>
-      <a href="https://www.google.com/maps/search/Club+El+Prado" target="_blank" rel="noopener noreferrer" class="detail-card reveal reveal-d1 detail-card-link">
+        <p>Viernes 8 de mayo, 2026<br>3:30 p.m. · Toca para agregar a tu agenda</p>
+      </div>
+      <div role="button" tabindex="0" onclick="showLocationPicker()" onkeypress="if(event.key==='Enter')showLocationPicker()" class="detail-card reveal reveal-d1 detail-card-link">
         <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <h3>Lugar</h3>
-        <p>Club El Prado<br><span style="font-size:0.78rem;color:var(--text-muted)">Ceremonia campestre</span></p>
-      </a>
+        <p>Club El Prado<br><span style="font-size:0.78rem;color:var(--text-muted)">Ceremonia campestre · Toca para Maps o Waze</span></p>
+      </div>
       <div class="detail-card reveal reveal-d2">
         <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
         <h3>Código de Vestimenta</h3>
@@ -1342,42 +1449,39 @@
 <script>
 // ═══ GUESTS ═══
 const GUEST_LIST = {
-  "grupo01": { guests: ["Marta Perez"] },
+  "grupo01": { guests: ["Mamá"] },
   "grupo02": { guests: ["Luisa Holguin"] },
-  "grupo03": { guests: ["Juan Castillo", "Sol"] },
-  "grupo04": { guests: ["Marta"] },
+  "grupo03": { guests: ["Papá", "Sol"] },
+  "grupo04": { guests: ["Tía Marta"] },
   "grupo05": { guests: ["Juliana", "Andres"] },
-  "grupo06": { guests: ["Andres Felipe", "Maye"] },
-  "grupo07": { guests: ["Juan David", "Luciana", "Angelica"] },
-  "grupo08": { guests: ["Aleja"] },
-  "grupo09": { guests: ["Johana"] },
-  "grupo10": { guests: ["Chucho"] },
+  "grupo06": { guests: ["Andres Felipe", "Maye", "Doña Jaz"] },
+  "grupo07": { guests: ["Juan David", "Angélica", "Luciana"] },
+  "grupo08": { guests: ["Aleja Villegas"] },
+  "grupo09": { guests: ["Joha Marulanda"] },
+  "grupo10": { guests: ["Jesús Holguín"] },
   "grupo11": { guests: ["Juanda", "Laura"] },
   "grupo12": { guests: ["Luisa", "Jose"] },
   "grupo13": { guests: ["Papá", "Andrea"] },
   "grupo14": { guests: ["Isaac"] },
   "grupo15": { guests: ["Tía Bertha", "Tío Jairo"] },
-  "grupo16": { guests: ["Angela"] },
-  "grupo17": { guests: ["Mauro"] },
-  "grupo18": { guests: ["Adriana", "Alejo"] },
-  "grupo19": { guests: ["Vero", "Pipe"] },
-  "grupo20": { guests: ["Tía Milena"] },
-  "grupo21": { guests: ["Tía Rosalba"] },
-  "grupo22": { guests: ["Tío Cesar"] },
-  "grupo23": { guests: ["Paulo"] },
-  "grupo24": { guests: ["Angelica"] },
-  "grupo25": { guests: ["Sandra"] },
-  "grupo26": { guests: ["Claudia", "Richard"] },
-  "grupo27": { guests: ["Estafany", "Daniel"] },
-  "grupo28": { guests: ["John Jairo", "Paula"] },
-  "grupo29": { guests: ["Diego", "Claudia"] },
-  "grupo30": { guests: ["Jose", "Alcira"] },
-  "grupo31": { guests: ["Raul", "Lucy"] },
-  "grupo32": { guests: ["Tatiana", "Henry", "Lorena"] },
-  "grupo33": { guests: ["Bayron", "Diana"] },
-  "grupo34": { guests: ["Jero", "Valentina"] },
-  "grupo35": { guests: ["Andrea", "Jorge"] },
-  "grupo36": { guests: ["Mafe"] },
+  "grupo16": { guests: ["Angela","Mauro"] },
+  "grupo17": { guests: ["Adriana", "Alejo"] },
+  "grupo18": { guests: ["Vero", "Pipe"] },
+  "grupo19": { guests: ["Tía Milena"] },
+  "grupo20": { guests: ["Tía Rosalba", "Tío Cesar"] },
+  "grupo21": { guests: ["Paulo","Angélica"] },
+  "grupo22": { guests: ["Sandra"] },
+  "grupo23": { guests: ["Claudia", "Richard"] },
+  "grupo24": { guests: ["Estefany", "Daniel"] },
+  "grupo25": { guests: ["John Jairo", "Paula","JuanPa","Cata"] },
+  "grupo26": { guests: ["Diego", "Claudia"] },
+  "grupo27": { guests: ["Jose", "Alcira"] },
+  "grupo28": { guests: ["Raul", "Lucy"] },
+  "grupo29": { guests: ["Tatiana", "Henry"] },
+  "grupo30": { guests: ["Bayron", "Diana"] },
+  "grupo31": { guests: ["Jero", "Valentina"] },
+  "grupo32": { guests: ["Andrea", "Jorge"] },
+  "grupo33": { guests: ["Mafe"] },
   "demo":    { guests: ["Invitado de Prueba", "Acompañante de Prueba"] }
 };
 // ═══ GOOGLE SHEETS — PEGA TU URL AQUÍ ═══
@@ -1394,6 +1498,43 @@ function openSeal() {
     el.classList.add('hidden');
     document.body.style.overflow = '';
   }, 1000);
+}
+
+// ═══ ADD TO CALENDAR (archivo .ics universal) ═══
+function addToCalendar() {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Boda Gustavo y Daniela//ES',
+    'BEGIN:VEVENT',
+    'UID:boda-gustavo-daniela-' + Date.now() + '@invitacion',
+    'DTSTAMP:20260508T203000Z',
+    'DTSTART:20260508T203000Z',
+    'DTEND:20260509T040000Z',
+    'SUMMARY:Boda Gustavo y Daniela',
+    'DESCRIPTION:Con la bendición de Dios, celebramos nuestra boda. Ceremonia campestre.',
+    'LOCATION:Club El Prado',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'boda-gustavo-daniela.ics';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ═══ LOCATION PICKER (Maps / Waze) ═══
+function showLocationPicker() {
+  document.getElementById('locationModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeLocationPicker(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('locationModal').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // ═══ CANDLE DOTS ═══
