@@ -701,6 +701,16 @@
     color: var(--text-soft);
     line-height: 1.8;
   }
+  .detail-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+  }
+  .detail-card-link:hover p,
+  .detail-card-link:focus p {
+    color: var(--brown);
+  }
 
   /* ═══ COUNTDOWN ═══ */
   .countdown-section {
@@ -1218,16 +1228,16 @@
     <p class="section-label reveal">Los Detalles</p>
     <h2 class="section-title reveal">Celebra con Nosotros</h2>
     <div class="details-grid">
-      <div class="detail-card reveal">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Gustavo+y+Daniela&dates=20260508T203000Z/20260509T040000Z&details=Con+la+bendici%C3%B3n+de+Dios%2C+celebramos+nuestra+boda.+Ceremonia+campestre.&location=Club+El+Prado" target="_blank" rel="noopener noreferrer" class="detail-card reveal detail-card-link">
         <div class="detail-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
         <h3>Fecha y Hora</h3>
         <p>Viernes 8 de mayo, 2026<br>3:30 p.m.</p>
-      </div>
-      <div class="detail-card reveal reveal-d1">
+      </a>
+      <a href="https://www.google.com/maps/search/Club+El+Prado" target="_blank" rel="noopener noreferrer" class="detail-card reveal reveal-d1 detail-card-link">
         <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <h3>Lugar</h3>
         <p>Club El Prado<br><span style="font-size:0.78rem;color:var(--text-muted)">Ceremonia campestre</span></p>
-      </div>
+      </a>
       <div class="detail-card reveal reveal-d2">
         <div class="detail-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
         <h3>Código de Vestimenta</h3>
