@@ -1456,6 +1456,195 @@
 </div><!-- /mainContent -->
 
 <script>
+// ═══ I18N — Un solo archivo: ?lang=en para inglés ═══
+const TRANSLATIONS = {
+  es: {
+    sealHint: 'Toca para abrir',
+    errorTitle: 'Invitación no encontrada',
+    errorText: 'Verifica que estés usando el enlace correcto.',
+    close: 'Cerrar',
+    locationTitle: '¿Cómo deseas llegar?',
+    verse: '«Y los dos serán una sola carne; así que ya no son dos, sino uno solo.»',
+    verseRef: '— Marcos 10:8',
+    heroScript: 'Con la bendición de Dios, celebramos nuestra boda',
+    guestLabel: 'Queridos',
+    guestMessage: 'Con inmensa alegría, los invitamos a ser parte de este momento tan especial en el que uniremos nuestras vidas ante Dios.',
+    and: ' y ',
+    detailsLabel: 'Los Detalles',
+    celebrateTitle: 'Celebra con Nosotros',
+    dateTime: 'Fecha y Hora',
+    dateTimeVal: 'Viernes 8 de mayo, 2026',
+    dateTimeHint: '3:30 p.m. · Toca para agregar a tu agenda',
+    venue: 'Lugar',
+    venueHint: 'Ceremonia campestre · Toca para Maps o Waze',
+    dressCode: 'Código de Vestimenta',
+    dressCodeHint: 'Inspiración de vestuario · Pinterest',
+    noGifts: 'No regalos ni dinero',
+    presenceGift: 'Su presencia es el mejor regalo.',
+    onlyYou: 'Solo los queremos a ustedes con nosotros',
+    countdownLabel: 'Faltan',
+    days: 'Días',
+    hours: 'Horas',
+    min: 'Min',
+    sec: 'Seg',
+    itineraryLabel: 'Itinerario',
+    programTitle: 'Programa del Día',
+    ceremony: 'Ceremonia Cristiana',
+    ceremonyDesc: 'En un hermoso entorno campestre, uniremos nuestras vidas bajo la bendición de Dios.',
+    cocktail: 'Cóctel de Bienvenida',
+    cocktailDesc: 'Un momento para compartir, brindar y disfrutar entre la naturaleza.',
+    dinner: 'Cena',
+    dinnerDesc: 'Una velada íntima a la luz de las velas para celebrar juntos este nuevo comienzo.',
+    rsvpLabel: 'Confirmación',
+    rsvpTitle: '¿Nos Acompañas?',
+    dietaryLabel: 'Restricciones alimentarias (opcional)',
+    dietaryPlaceholder: 'Ej: Vegetariano, sin gluten...',
+    messageLabel: 'Mensaje para los novios (opcional)',
+    messagePlaceholder: 'Escríbenos unas palabras...',
+    confirmBtn: 'Confirmar Asistencia',
+    thanksTitle: '¡Gracias!',
+    successText: 'Tu confirmación ha sido registrada.<br>¡Nos vemos el 8 de mayo con la bendición de Dios!',
+    footerVerse: '«Lo que Dios unió, no lo separe el hombre.» — Marcos 10:9',
+    asiste: 'Asiste',
+    noAsiste: 'No asiste',
+    alertConfirm: 'Por favor confirma la asistencia de todos los invitados.',
+    sending: 'ENVIANDO...',
+    todayBigDay: '¡Hoy es el gran día!',
+    icsDesc: 'Con la bendición de Dios, celebramos nuestra boda. Ceremonia campestre.',
+    pageTitle: 'Gustavo & Daniela — Nuestra Boda',
+    envDate: '08 · Mayo · 2026'
+  },
+  en: {
+    sealHint: 'Tap to open',
+    errorTitle: 'Invitation not found',
+    errorText: 'Please check that you are using the correct link.',
+    close: 'Close',
+    locationTitle: 'How would you like to get there?',
+    verse: '"So they are no longer two, but one flesh."',
+    verseRef: '— Mark 10:8',
+    heroScript: "With God's blessing, we celebrate our wedding",
+    guestLabel: 'Dear',
+    guestMessage: "With great joy, we invite you to be part of this very special moment when we will unite our lives before God.",
+    and: ' and ',
+    detailsLabel: 'The Details',
+    celebrateTitle: 'Celebrate with Us',
+    dateTime: 'Date and Time',
+    dateTimeVal: 'Friday, May 8, 2026',
+    dateTimeHint: '3:30 p.m. · Tap to add to your calendar',
+    venue: 'Venue',
+    venueHint: 'Outdoor ceremony · Tap for Maps or Waze',
+    dressCode: 'Dress Code',
+    dressCodeHint: 'Outfit inspiration · Pinterest',
+    noGifts: 'No gifts or money',
+    presenceGift: 'Your presence is the best gift.',
+    onlyYou: 'We only want you with us',
+    countdownLabel: 'Countdown',
+    days: 'Days',
+    hours: 'Hours',
+    min: 'Min',
+    sec: 'Sec',
+    itineraryLabel: 'Itinerary',
+    programTitle: 'Day Program',
+    ceremony: 'Christian Ceremony',
+    ceremonyDesc: "In a beautiful outdoor setting, we will unite our lives under God's blessing.",
+    cocktail: 'Welcome Cocktail',
+    cocktailDesc: 'A moment to share, toast and enjoy in nature.',
+    dinner: 'Dinner',
+    dinnerDesc: 'An intimate evening by candlelight to celebrate this new beginning together.',
+    rsvpLabel: 'RSVP',
+    rsvpTitle: 'Will You Join Us?',
+    dietaryLabel: 'Dietary restrictions (optional)',
+    dietaryPlaceholder: 'E.g.: Vegetarian, gluten-free...',
+    messageLabel: 'Message for the couple (optional)',
+    messagePlaceholder: 'Write us a few words...',
+    confirmBtn: 'Confirm Attendance',
+    thanksTitle: 'Thank You!',
+    successText: "Your confirmation has been recorded.<br>See you on May 8th with God's blessing!",
+    footerVerse: '"What therefore God hath joined together, let not man put asunder." — Mark 10:9',
+    asiste: 'Attending',
+    noAsiste: 'Not Attending',
+    alertConfirm: 'Please confirm attendance for all guests.',
+    sending: 'SENDING...',
+    todayBigDay: 'Today is the big day!',
+    icsDesc: "With God's blessing, we celebrate our wedding. Outdoor ceremony.",
+    pageTitle: 'Gustavo & Daniela — Our Wedding',
+    envDate: '08 · May · 2026'
+  }
+};
+
+function getLang() {
+  const p = new URLSearchParams(window.location.search);
+  return (p.get('lang') === 'en') ? 'en' : 'es';
+}
+function t(k) { return TRANSLATIONS[getLang()][k] || k; }
+function applyLang() {
+  const L = getLang();
+  document.documentElement.lang = L;
+  document.title = TRANSLATIONS[L].pageTitle;
+  const m = (sel, key, attr = 'textContent') => {
+    const el = document.querySelector(sel);
+    if (el) el[attr] = TRANSLATIONS[L][key];
+  };
+  m('.seal-hint', 'sealHint');
+  m('#errorSection h2', 'errorTitle');
+  m('#errorSection p', 'errorText');
+  document.querySelector('.location-modal-close')?.setAttribute('aria-label', TRANSLATIONS[L].close);
+  m('.location-modal-title', 'locationTitle');
+  m('.hero-script', 'heroScript');
+  m('.hero-date-top', 'envDate');
+  m('.guest-label', 'guestLabel');
+  m('.guest-message', 'guestMessage');
+  const sl = document.querySelectorAll('.section-label.reveal');
+  const st = document.querySelectorAll('.section-title.reveal');
+  if (sl[0]) sl[0].textContent = TRANSLATIONS[L].detailsLabel;
+  if (st[0]) st[0].textContent = TRANSLATIONS[L].celebrateTitle;
+  const det = document.querySelectorAll('.detail-card');
+  if (det[0]) { det[0].querySelector('h3').textContent = TRANSLATIONS[L].dateTime;
+    const p = det[0].querySelector('p'); if (p) p.innerHTML = TRANSLATIONS[L].dateTimeVal + '<br>' + TRANSLATIONS[L].dateTimeHint; }
+  if (det[1]) { det[1].querySelector('h3').textContent = TRANSLATIONS[L].venue;
+    const p = det[1].querySelector('p'); if (p) p.innerHTML = 'Club El Prado<br><span style="font-size:0.78rem;color:var(--text-muted)">' + TRANSLATIONS[L].venueHint + '</span>'; }
+  if (det[2]) { det[2].querySelector('h3').textContent = TRANSLATIONS[L].dressCode;
+    const p = det[2].querySelector('p'); if (p) p.innerHTML = 'Formal<br><span style="font-size:0.78rem;color:var(--text-muted)">' + TRANSLATIONS[L].dressCodeHint + '</span>'; }
+  if (det[3]) { det[3].querySelector('h3').textContent = TRANSLATIONS[L].noGifts;
+    const p = det[3].querySelector('p'); if (p) p.innerHTML = TRANSLATIONS[L].presenceGift + '<br><span style="font-size:0.78rem;color:var(--text-muted)">' + TRANSLATIONS[L].onlyYou + '</span>'; }
+  if (sl[1]) sl[1].textContent = TRANSLATIONS[L].countdownLabel;
+  document.querySelectorAll('.countdown-label').forEach((el, i) => {
+    const keys = ['days','hours','min','sec'];
+    if (keys[i]) el.textContent = TRANSLATIONS[L][keys[i]];
+  });
+  if (sl[2]) sl[2].textContent = TRANSLATIONS[L].itineraryLabel;
+  if (st[1]) st[1].textContent = TRANSLATIONS[L].programTitle;
+  const tl = document.querySelectorAll('.timeline-item');
+  if (tl[0]) { tl[0].querySelector('.timeline-title').textContent = TRANSLATIONS[L].ceremony;
+    tl[0].querySelector('.timeline-desc').textContent = TRANSLATIONS[L].ceremonyDesc; }
+  if (tl[1]) { tl[1].querySelector('.timeline-title').textContent = TRANSLATIONS[L].cocktail;
+    tl[1].querySelector('.timeline-desc').textContent = TRANSLATIONS[L].cocktailDesc; }
+  if (tl[2]) { tl[2].querySelector('.timeline-title').textContent = TRANSLATIONS[L].dinner;
+    tl[2].querySelector('.timeline-desc').textContent = TRANSLATIONS[L].dinnerDesc; }
+  if (sl[3]) sl[3].textContent = TRANSLATIONS[L].rsvpLabel;
+  if (st[2]) st[2].textContent = TRANSLATIONS[L].rsvpTitle;
+  const lblDiet = document.querySelector('label[for="dietary"]');
+  if (lblDiet) lblDiet.textContent = TRANSLATIONS[L].dietaryLabel;
+  const diet = document.getElementById('dietary');
+  if (diet) diet.placeholder = TRANSLATIONS[L].dietaryPlaceholder;
+  const lblMsg = document.querySelector('label[for="message"]');
+  if (lblMsg) lblMsg.textContent = TRANSLATIONS[L].messageLabel;
+  const msg = document.getElementById('message');
+  if (msg) msg.placeholder = TRANSLATIONS[L].messagePlaceholder;
+  const btn = document.getElementById('btnSubmit');
+  if (btn) btn.textContent = TRANSLATIONS[L].confirmBtn;
+  const thanks = document.querySelector('#successMessage h3');
+  if (thanks) thanks.textContent = TRANSLATIONS[L].thanksTitle;
+  const succP = document.querySelector('#successMessage p');
+  if (succP) succP.innerHTML = TRANSLATIONS[L].successText;
+  const fv = document.querySelector('.footer-verse');
+  if (fv) fv.innerHTML = TRANSLATIONS[L].footerVerse;
+  const heroVerse = document.querySelector('.hero-verse');
+  if (heroVerse) heroVerse.innerHTML = TRANSLATIONS[L].verse + '\n      <cite>' + TRANSLATIONS[L].verseRef + '</cite>';
+  const envDate = document.querySelector('.env-letter-date');
+  if (envDate) envDate.textContent = TRANSLATIONS[L].envDate;
+}
+
 // ═══ GUESTS ═══
 const GUEST_LIST = {
   "grupo01": { guests: ["Mamá"] },
@@ -1491,7 +1680,10 @@ const GUEST_LIST = {
   "grupo31": { guests: ["Jero", "Valentina"] },
   "grupo32": { guests: ["Andrea", "Jorge"] },
   "grupo33": { guests: ["Mafe"] },
-  "demo":    { guests: ["Invitado de Prueba", "Acompañante de Prueba"] }
+  "grupo33": { guests: ["Tina","Collin"] },
+  "grupo33": { guests: ["Alina"] },
+  "demo":    { guests: ["Invitado de Prueba", "Acompañante de Prueba"] },
+  "en_two": { guests: ["Guest One", "Guest Two"] }
 };
 // ═══ GOOGLE SHEETS — PEGA TU URL AQUÍ ═══
 const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwIqfiOYT8zCDMTE_5AKKis2KL04lzuY-vhNFw3CvuuRlfY3KUK461KYbk9fmLKpbH1/exec";
@@ -1521,7 +1713,7 @@ function addToCalendar() {
     'DTSTART:20260508T203000Z',
     'DTEND:20260509T040000Z',
     'SUMMARY:Boda Gustavo y Daniela',
-    'DESCRIPTION:Con la bendición de Dios, celebramos nuestra boda. Ceremonia campestre.',
+    'DESCRIPTION:' + t('icsDesc'),
     'LOCATION:Club El Prado',
     'END:VEVENT',
     'END:VCALENDAR'
@@ -1564,6 +1756,7 @@ function initCandleDots() {
 
 // ═══ INIT ═══
 function init() {
+  applyLang();
   const params = new URLSearchParams(window.location.search);
   let groupId = params.get('id');
   if (!groupId) groupId = 'demo';
@@ -1581,7 +1774,7 @@ function init() {
   const names = currentGroup.guests;
   const display = names.length === 1
     ? names[0]
-    : names.slice(0, -1).join(', ') + ' y ' + names[names.length - 1];
+    : names.slice(0, -1).join(', ') + t('and') + names[names.length - 1];
   document.getElementById('guestNamesDisplay').textContent = display;
 
   const listEl = document.getElementById('rsvpGuestList');
@@ -1592,8 +1785,8 @@ function init() {
     item.innerHTML = `
       <span class="rsvp-guest-name">${name}</span>
       <div class="rsvp-toggle-group">
-        <button class="rsvp-toggle" data-guest="${i}" data-value="yes" onclick="toggleRSVP(this)">Asiste</button>
-        <button class="rsvp-toggle" data-guest="${i}" data-value="no" onclick="toggleRSVP(this)">No asiste</button>
+        <button class="rsvp-toggle" data-guest="${i}" data-value="yes" onclick="toggleRSVP(this)">${t('asiste')}</button>
+        <button class="rsvp-toggle" data-guest="${i}" data-value="no" onclick="toggleRSVP(this)">${t('noAsiste')}</button>
       </div>`;
     listEl.appendChild(item);
   });
@@ -1613,13 +1806,13 @@ function toggleRSVP(btn) {
 
 function submitRSVP() {
   if (!Object.values(guestResponses).every(v => v !== null)) {
-    alert('Por favor confirma la asistencia de todos los invitados.');
+    alert(t('alertConfirm'));
     return;
   }
 
   const btn = document.getElementById('btnSubmit');
   btn.disabled = true;
-  btn.textContent = 'ENVIANDO...';
+  btn.textContent = t('sending');
 
   const result = {
     groupId: currentGroup.id,
@@ -1659,7 +1852,7 @@ function submitRSVP() {
 function updateCountdown() {
   const diff = new Date('2026-05-08T15:30:00') - new Date();
   if (diff <= 0) {
-    document.getElementById('countdown').innerHTML = '<p style="font-family:var(--font-script);font-size:2rem;color:var(--brown)">¡Hoy es el gran día!</p>';
+    document.getElementById('countdown').innerHTML = '<p style="font-family:var(--font-script);font-size:2rem;color:var(--brown)">' + t('todayBigDay') + '</p>';
     return;
   }
   document.getElementById('days').textContent = Math.floor(diff / 864e5);
